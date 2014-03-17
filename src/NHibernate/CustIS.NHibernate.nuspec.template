@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <package>
   <metadata>
-    <id>NHibernate</id>
+    <id>CustIS.NHibernate</id>
     <version>x.y.z</version>
     <authors>NHibernate community, Hibernate community</authors>
     <summary>
