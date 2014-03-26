@@ -1122,7 +1122,7 @@ namespace NHibernate.Impl
 			using (new SessionIdLoggingContext(SessionId))
 			{
 				CheckAndUpdateSessionStatus();
-				if (!TransactionInProgress)
+                if (!TransactionInProgress && System.Transactions.Transaction.Current == null)
 				{
 					// do not auto-flush while outside a transaction
 					return false;

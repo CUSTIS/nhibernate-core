@@ -214,6 +214,9 @@
     <Compile Include="Criteria\MaterialResource.cs" />
     <Compile Include="Criteria\ProjectionsTest.cs" />
     <Compile Include="Criteria\Reptile.cs" />
+    <Compile Include="CustIS\AutoFlushInDistributedTransactionsTest.cs" />
+    <Compile Include="Deletetransient\Address.cs" />
+    <Compile Include="Deletetransient\Person.cs" />
     <Compile Include="DialectTest\FunctionTests\SubstringSupportFixture.cs" />
     <Compile Include="DialectTest\FunctionTests\SequenceSupportFixture.cs" />
     <Compile Include="DialectTest\Ingres9DialectFixture.cs" />
@@ -255,9 +258,9 @@
     <Compile Include="Criteria\Student.cs" />
     <Compile Include="Criteria\StudentDTO.cs" />
     <Compile Include="DebugConnectionProvider.cs" />
-    <Compile Include="Deletetransient\Address.cs" />
+    <Compile Include="CustIS\Address.cs" />
     <Compile Include="Deletetransient\DeleteTransientEntityTest.cs" />
-    <Compile Include="Deletetransient\Person.cs" />
+    <Compile Include="CustIS\Person.cs" />
     <Compile Include="DialectTest\DB2DialectFixture.cs" />
     <Compile Include="DialectTest\DialectFixture.cs" />
     <Compile Include="DialectTest\FirebirdDialectFixture.cs" />
@@ -2759,9 +2762,6 @@
     <EmbeddedResource Include="Criteria\MaterialResource.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Criteria\Animal.hbm.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="ConnectionTest\Silly.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -3228,7 +3228,7 @@
     <EmbeddedResource Include="CompositeId\Product.hbm.xml" />
     <EmbeddedResource Include="Cascade\Job.hbm.xml" />
     <EmbeddedResource Include="Cascade\JobBatch.hbm.xml" />
-    <EmbeddedResource Include="Deletetransient\Person.hbm.xml" />
+    <EmbeddedResource Include="CustIS\Person.hbm.xml" />
     <EmbeddedResource Include="BulkManipulation\SimpleClass.hbm.xml" />
     <EmbeddedResource Include="Ado\VerySimple.hbm.xml" />
     <EmbeddedResource Include="Ado\AlmostSimple.hbm.xml" />
@@ -3241,6 +3241,7 @@
     <EmbeddedResource Include="DriverTest\SqlServerCeEntity.hbm.xml" />
     <EmbeddedResource Include="CollectionTest\NullableValueTypeElementMapFixture.hbm.xml" />
     <EmbeddedResource Include="DriverTest\EntityForMs2008.hbm.xml" />
+    <Content Include="Criteria\Animal.hbm.xml" />
     <Content Include="DbScripts\MsSql2012DialectLinqReadonlyCreateScript.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -3253,6 +3254,7 @@
     <Content Include="DbScripts\PostgreSQL82DialectLinqReadonlyDropScript.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Deletetransient\Person.hbm.xml" />
     <Content Include="DynamicEntity\package.html" />
     <EmbeddedResource Include="NHSpecificTest\NH2341\Mappings.hbm.xml" />
     <EmbeddedResource Include="NHSpecificTest\NH2228\Mappings.hbm.xml" />
