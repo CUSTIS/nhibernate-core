@@ -3241,7 +3241,7 @@
     <EmbeddedResource Include="DriverTest\SqlServerCeEntity.hbm.xml" />
     <EmbeddedResource Include="CollectionTest\NullableValueTypeElementMapFixture.hbm.xml" />
     <EmbeddedResource Include="DriverTest\EntityForMs2008.hbm.xml" />
-    <Content Include="Criteria\Animal.hbm.xml" />
+    <EmbeddedResource Include="Criteria\Animal.hbm.xml" />
     <Content Include="DbScripts\MsSql2012DialectLinqReadonlyCreateScript.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

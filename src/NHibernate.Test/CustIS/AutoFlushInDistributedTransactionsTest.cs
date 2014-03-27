@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Data;
 using System.Data.OracleClient;
 using System.Linq.Dynamic;
 using System.Linq;
@@ -30,10 +31,10 @@ namespace NHibernate.Test.CustIS
         [Test]
         public void InsideDtcAutoFlushIsWorking()
         {
-            ISession s;
+            IDbConnection con;
             using (var tx = new TransactionScope())
             {
-                using (s = sessions.OpenSession())
+                using (var s = sessions.OpenSession())
                 {
                     var vasyok = new Person("Вася");
                     s.Save(vasyok);
@@ -41,7 +42,13 @@ namespace NHibernate.Test.CustIS
                     var persons = s.Query<Person>().ToList();
 
                     CollectionAssert.AreEqual(new[] { vasyok }, persons);
+
+                    con = s.Connection;
                 }
+            }
+            if (con.State != ConnectionState.Closed)
+            {
+                con.Close();
             }
         }
     }
