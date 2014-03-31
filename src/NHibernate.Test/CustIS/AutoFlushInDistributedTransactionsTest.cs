@@ -36,12 +36,12 @@ namespace NHibernate.Test.CustIS
             {
                 using (var s = sessions.OpenSession())
                 {
-                    var vasyok = new Person("Вася");
-                    s.Save(vasyok);
+                    var person = new Person("Вася");
+                    s.Save(person);
 
                     var persons = s.Query<Person>().ToList();
 
-                    CollectionAssert.AreEqual(new[] { vasyok }, persons);
+                    CollectionAssert.AreEqual(new[] { person }, persons);
 
                     con = s.Connection;
                 }
