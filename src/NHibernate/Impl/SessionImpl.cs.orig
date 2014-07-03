@@ -1865,11 +1865,34 @@ namespace NHibernate.Impl
 			}
 		}
 
+<<<<<<< HEAD
+=======
         public IQueryable<T> Query<T>()
         {
             return new NhQueryable<T>(GetSessionImplementation());
         }
 
+        public override IList List(CriteriaImpl criteria)
+		{
+			using (new SessionIdLoggingContext(SessionId))
+			{
+				ArrayList results = new ArrayList();
+				List(criteria, results);
+				return results;
+			}
+		}
+
+		public override IList<T> List<T>(CriteriaImpl criteria)
+		{
+			using (new SessionIdLoggingContext(SessionId))
+			{
+				List<T> results = new List<T>();
+				List(criteria, results);
+				return results;
+			}
+		}
+
+>>>>>>> 722be2f... bug 155919
 		public override void List(CriteriaImpl criteria, IList results)
 		{
 			using (new SessionIdLoggingContext(SessionId))

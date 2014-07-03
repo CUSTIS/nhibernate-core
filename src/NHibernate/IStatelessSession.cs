@@ -1,5 +1,6 @@
 using System;
 using System.Data;
+using System.Linq;
 using System.Linq.Expressions;
 using NHibernate.Engine;
 
@@ -213,7 +214,14 @@ namespace NHibernate
 		/// <remarks>Entities returned by the query are detached.</remarks>
 		ICriteria CreateCriteria(string entityName, string alias);
 
-		/// <summary>
+        /// <summary>
+        /// Creates a new <c>IQueryable{T}</c> for the entity class.
+        /// </summary>
+        /// <typeparam name="T">The entity class</typeparam>
+        /// <returns>An IQueryable{T} object</returns>
+        IQueryable<T> Query<T>();
+
+        /// <summary>
 		/// Creates a new <c>IQueryOver&lt;T&gt;</c> for the entity class.
 		/// </summary>
 		/// <typeparam name="T">The entity class</typeparam>

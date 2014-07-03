@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Linq.Expressions;
 using NHibernate.AdoNet;
 using NHibernate.Cache;
@@ -13,6 +14,7 @@ using NHibernate.Engine.Query.Sql;
 using NHibernate.Event;
 using NHibernate.Hql;
 using NHibernate.Id;
+using NHibernate.Linq;
 using NHibernate.Loader.Criteria;
 using NHibernate.Loader.Custom;
 using NHibernate.Loader.Custom.Sql;
@@ -811,7 +813,12 @@ namespace NHibernate.Impl
 			}
 		}
 
-		/// <summary>
+        public IQueryable<T> Query<T>()
+        {
+            return new NhQueryable<T>(GetSessionImplementation());
+        }
+
+        /// <summary>
 		/// Begin a NHibernate transaction
 		/// </summary>
 		/// <returns>A NHibernate transaction</returns>
