@@ -555,7 +555,8 @@ namespace NHibernate.Mapping.ByCode
 			System.Type firstType = typeToMap.FirstOrDefault();
 			if (firstType != null && typeToMap.All(t => t.Assembly.Equals(firstType.Assembly)))
 			{
-				defaultAssemblyName = firstType.Assembly.GetName().Name;
+				//NH-2831: always use the full name of the assembly because it may come from GAC
+				defaultAssemblyName = firstType.Assembly.GetName().FullName;
 			}
 			if (firstType != null && typeToMap.All(t => t.Namespace == firstType.Namespace))
 			{
@@ -581,15 +582,16 @@ namespace NHibernate.Mapping.ByCode
 			}
 			var typeToMap = new HashSet<System.Type>(types);
 
+			//NH-2831: always use the full name of the assembly because it may come from GAC
 			foreach (System.Type type in RootClasses(typeToMap))
 			{
-				var mapping = NewHbmMapping(type.Assembly.GetName().Name, type.Namespace);
+				var mapping = NewHbmMapping(type.Assembly.GetName().FullName, type.Namespace);
 				MapRootClass(type, mapping);
 				yield return mapping;
 			}
 			foreach (System.Type type in Subclasses(typeToMap))
 			{
-				var mapping = NewHbmMapping(type.Assembly.GetName().Name, type.Namespace);
+				var mapping = NewHbmMapping(type.Assembly.GetName().FullName, type.Namespace);
 				AddSubclassMapping(mapping, type);
 				yield return mapping;
 			}
@@ -1280,9 +1282,19 @@ namespace NHibernate.Mapping.ByCode
 			{
 				return new OneToManyRelationMapper(propertyPath, ownerType, collectionElementType, modelInspector, customizerHolder, this);
 			}
-			if (modelInspector.IsManyToMany(property))
+			//NH-3667 & NH-3102
+			//check if property is really a many-to-many: as detected by modelInspector.IsManyToMany and also the collection type is an entity
+			if (modelInspector.IsManyToMany(property) == true)
 			{
-				return new ManyToManyRelationMapper(propertyPath, customizerHolder, this);
+				if (property.GetPropertyOrFieldType().IsGenericCollection() == true)
+				{
+					var args = property.GetPropertyOrFieldType().GetGenericArguments();
+
+					if (modelInspector.IsEntity(args.Last()) == true)
+					{
+						return new ManyToManyRelationMapper(propertyPath, customizerHolder, this);
+					}
+				}
 			}
 			if (modelInspector.IsComponent(collectionElementType))
 			{

@@ -1,3 +1,66 @@
+Build 4.0.3.GA
+=============================
+
+
+** Bug
+    * [NH-2504] - Can't use Cacheable with Group By
+    * [NH-3457] - TemplatedViolatedConstraintNameExtracter.ExtractUsingTemplate calls Substring with wrong arguments
+    * [NH-3468] - InvalidCastException when deleting entities containing uninitialized lazy components
+    * [NH-3573] - Query cache statistics not updated when using MultiCriteria
+    * [NH-3731] - Unable to serialize session after modifying the index of entities in a list
+
+
+Build 4.0.2.GA
+=============================
+
+** Bug
+    * [NH-2779] - Session.Get() can throw InvalidCastException when log-level is set to DEBUG
+    * [NH-2782] - Linq: selecting into a new array doesn't work
+    * [NH-2831] - NH cannot load mapping assembly from GAC 
+    * [NH-3049] - Mapping by code to Field not working
+    * [NH-3222] - NHibernate Futures passes empty tuples to ResultSetTransformer
+    * [NH-3650] - ComponentAsId<T> used more than once, cache first mapping and produces  subsequently a sql select wrong
+    * [NH-3709] - Fix Reference to One Shot Delete and Inverse Collections
+    * [NH-3710] - Use of SetLockMode with DetachedCriteria causes null reference exception
+
+** Task
+    * [NH-3697] - Ignore Firebird in NHSpecificTest.NH1981
+    * [NH-3698] - NHSpecificTest.NH1989 fails for some drivers
+
+
+Build 4.0.1.GA
+=============================
+
+** Bug
+    * [NH-3102] - Wrong mapping produced by Map
+    * [NH-3214] - PropertyContainerCustomizer.Bag() throws NullReferenceException when mapping a property of type IList
+    * [NH-3575] - DefaultReadOnly not working for Future() queries
+    * [NH-3656] - Firebird doesn't accept Currency as parameter type
+    * [NH-3667] - MappingByCode produce wrong table field name 'idx' in Dictionary<,> mappings
+    * [NH-3679] - SchemaExport.Create(false, false) does not write to file specified via SchemaExport.SetOutputFile
+    * [NH-3691] - All dialect checks in NHSpecificTest.NH1487.Fixture are broken
+    * [NH-3692] - TypedManyToOneTest is broken for Firebird
+    * [NH-3694] - Criteria or QueryOver with join to components collection does not return data. It worked in NH 3.3.
+    * [NH-3695] - NHSpecificTest.NH1845 fails for some Dialects
+    * [NH-3696] - Connection pooling + Multi threraded tests
+    * [NH-3701] - NHSpecificTest.NH2302 Fails under Firebird
+
+** Improvement
+    * [NH-3604] - Map ByCode fails when property is protected (not public)
+    * [NH-3687] - Change Id mapping of TimesheetEntry from native to assigned
+    * [NH-3688] - Modify NHSpecificTest.NH1391 so that it doesn't depend on preknown id values
+    * [NH-3690] - Add LEFT function to Firebird
+
+** Patch
+    * [NH-3383] - Fix for multiple objects of CascadeStyle in Memory that should be singleton
+    * [NH-3577] - Fix in SessionFactory.Statistics.LogSummary() method to show 0 milisecond as MaxQueryTime when no query was executed, instead of  -922337203685477
+
+** Task
+    * [NH-3085] - Document enhanced id generators
+    * [NH-3660] - Ignore Firebird in DtcFailuresFixture
+    * [NH-3689] - Ignore Firebird in NHSpecificTest.NH1171
+
+
 Build 4.0.0.GA
 =============================
 
