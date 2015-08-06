@@ -5,6 +5,7 @@ using System.Linq;
 using NHibernate.Engine;
 using NHibernate.SqlCommand;
 using NHibernate.SqlTypes;
+using NHibernate.Type;
 using NHibernate.Util;
 using Environment = NHibernate.Cfg.Environment;
 
@@ -214,7 +215,13 @@ namespace NHibernate.Driver
 			return dbParam;
 		}
 
-		public void RemoveUnusedCommandParameters(IDbCommand cmd, SqlString sqlString)
+        /// <inheritDoc />
+	    public virtual void BindParameter(IType expectedType, IDbCommand command, object value, int index, ISessionImplementor session)
+	    {
+            expectedType.NullSafeSet(command, value, index, session);
+	    }
+
+	    public void RemoveUnusedCommandParameters(IDbCommand cmd, SqlString sqlString)
 		{
 			if (!UseNamedPrefixInSql)
 				return; // Applicable only to named parameters

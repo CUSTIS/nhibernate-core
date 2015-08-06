@@ -3,6 +3,7 @@ using System.Data;
 using NHibernate.Engine;
 using NHibernate.SqlCommand;
 using NHibernate.SqlTypes;
+using NHibernate.Type;
 
 namespace NHibernate.Driver
 {
@@ -85,6 +86,9 @@ namespace NHibernate.Driver
 		/// <param name="sqlType">The SqlType to set for IDbDataParameter.</param>
 		/// <returns>An IDbDataParameter ready to be added to an IDbCommand.</returns>
 		IDbDataParameter GenerateParameter(IDbCommand command, string name, SqlType sqlType);
+
+	    /// <summary> Bind the <paramref name="value"/> into the <paramref name="command"/>. </summary>
+	    void BindParameter(IType expectedType, IDbCommand command, object value, int index, ISessionImplementor session);
 
 		/// <summary>
 		/// Remove 'extra' parameters from the IDbCommand
