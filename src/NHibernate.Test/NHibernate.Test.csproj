@@ -80,6 +80,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\net\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Oracle.DataAccess, Version=2.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\current-test-configuration\Oracle.DataAccess.dll</HintPath>
+    </Reference>
     <Reference Include="SharpTestsEx.NUnit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8c60d8070630b1c1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\net\SharpTestsEx.NUnit.dll</HintPath>
@@ -215,7 +219,23 @@
     <Compile Include="Criteria\ProjectionsTest.cs" />
     <Compile Include="Criteria\Reptile.cs" />
     <Compile Include="CustIS\AutoFlushInDistributedTransactionsTest.cs" />
+    <Compile Include="CustIS\DataAccessUtils\ArrayExtensions.cs" />
+    <Compile Include="CustIS\DataAccessUtils\CustomOracleDataClientDriver.cs" />
+    <Compile Include="CustIS\DataAccessUtils\InListAnalyzer.cs" />
+    <Compile Include="CustIS\DataAccessUtils\ParamMatchingInfo.cs" />
+    <Compile Include="CustIS\DataAccessUtils\QueryCommandMatchingInfo.cs" />
+    <Compile Include="CustIS\DataAccessUtils\StringSubstitution.cs" />
     <Compile Include="CustIS\LinqCollectionContains.cs" />
+    <Compile Include="CustIS\DataAccessUtils\OracleTypes\IntTableType.cs" />
+    <Compile Include="CustIS\DataAccessUtils\OracleTypes\IntTableTypeFactory.cs" />
+    <Compile Include="CustIS\DataAccessUtils\OracleTypes\ITableType.cs" />
+    <Compile Include="CustIS\DataAccessUtils\OracleTypes\LongTableType.cs" />
+    <Compile Include="CustIS\DataAccessUtils\OracleTypes\LongTableTypeFactory.cs" />
+    <Compile Include="CustIS\DataAccessUtils\OracleTypes\StringTableType.cs" />
+    <Compile Include="CustIS\DataAccessUtils\OracleTypes\StringTableTypeFactory.cs" />
+    <Compile Include="CustIS\DataAccessUtils\OracleTypes\TableType.cs" />
+    <Compile Include="CustIS\DataAccessUtils\OracleTypes\TableTypeFactory.cs" />
+    <Compile Include="CustIS\DataAccessUtils\OracleTypes\TableTypesConverter.cs" />
     <Compile Include="Deletetransient\Address.cs" />
     <Compile Include="Deletetransient\Person.cs" />
     <Compile Include="DialectTest\FunctionTests\SubstringSupportFixture.cs" />

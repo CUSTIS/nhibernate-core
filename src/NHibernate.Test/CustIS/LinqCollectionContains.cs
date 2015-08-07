@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using NHibernate.Cfg;
 using NHibernate.DomainModel.Northwind.Entities;
+using NHibernate.Engine;
 using NHibernate.Test.Linq;
 using NUnit.Framework;
 
@@ -29,6 +31,13 @@ namespace NHibernate.Test.CustIS
 						"CustIS.Person.hbm.xml"
 					};
             }
+        }
+
+        protected override void BuildSessionFactory()
+        {
+            cfg.Properties["connection.driver_class"] = "NHibernate.Test.CustIS.DataAccessUtils.CustomOracleDataClientDriver, NHibernate.Test";
+            
+            base.BuildSessionFactory();
         }
 
         [Category("IN")]
