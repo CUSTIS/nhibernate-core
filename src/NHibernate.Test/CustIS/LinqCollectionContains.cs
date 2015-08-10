@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using NHibernate.Cfg;
 using NHibernate.DomainModel.Northwind.Entities;
 using NHibernate.Engine;
 using NHibernate.Test.Linq;
+using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
 
 namespace NHibernate.Test.CustIS
@@ -15,6 +17,11 @@ namespace NHibernate.Test.CustIS
         protected override bool CheckDatabaseWasCleaned()
         {
             return true;
+        }
+
+        protected override void CreateSchema()
+        {
+            new SchemaExport(cfg).Create(false, true);
         }
 
         protected override string MappingsAssembly
@@ -36,8 +43,25 @@ namespace NHibernate.Test.CustIS
         protected override void BuildSessionFactory()
         {
             cfg.Properties["connection.driver_class"] = "NHibernate.Test.CustIS.DataAccessUtils.CustomOracleDataClientDriver, NHibernate.Test";
-            
+
             base.BuildSessionFactory();
+
+            var script = new[]
+            {
+                "CREATE OR REPLACE TYPE NH_INT_ARRAY AS TABLE OF NUMBER;",
+                "CREATE OR REPLACE TYPE NH_LONG_ARRAY AS TABLE OF NUMBER;",
+                "CREATE OR REPLACE TYPE NH_STRING_ARRAY AS TABLE OF VARCHAR2(4000);"
+            };
+
+            using (var session = OpenSession())
+            using (var cmd = session.Connection.CreateCommand())
+            {
+                foreach (var str in script)
+                {
+                    cmd.CommandText = str;
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         [Category("IN")]
