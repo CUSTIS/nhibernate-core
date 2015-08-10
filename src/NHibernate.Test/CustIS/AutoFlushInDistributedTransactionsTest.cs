@@ -46,7 +46,7 @@ namespace NHibernate.Test.CustIS
                     con = s.Connection;
                 }
             }
-            if (con.State != ConnectionState.Closed)
+            if (con != null && con.State != ConnectionState.Closed)
             {
                 con.Close();
             }
