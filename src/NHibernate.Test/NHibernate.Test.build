@@ -29,7 +29,6 @@
 			<include name="nunit.framework.dll" />
 			<include name="SharpTestsEx.NUnit.dll" />
  			<include name="System.Linq.Dynamic.dll" />
-      <include name="Oracle.DataAccess.dll" />
 		</assemblyfileset>
 		<resourcefileset id="project.resources" prefix="NHibernate.Test" dynamicprefix="true">
 			<include name="**/*.xml" />

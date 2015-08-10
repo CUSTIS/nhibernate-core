@@ -1,11 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using NHibernate.Cfg;
-using NHibernate.DomainModel.Northwind.Entities;
-using NHibernate.Engine;
-using NHibernate.Test.Linq;
 using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
 
