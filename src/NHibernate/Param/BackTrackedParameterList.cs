@@ -6,9 +6,9 @@ using NHibernate.SqlCommand;
 
 namespace NHibernate.Param
 {
-    public class BackTrackedParameterList: IList<Parameter>
+    internal class BackTrackedParameterList: IList<Parameter>
     {
-        private readonly IDictionary<object, Tuple<Parameter, int>> _dictionary;
+        private readonly IDictionary<object, Tuple<Parameter, int>[]> _dictionary;
 
         private readonly IList<Parameter> _underlyingList;
 
@@ -17,21 +17,20 @@ namespace NHibernate.Param
             _underlyingList = sqlParameters.ToList();
             _dictionary = _underlyingList
                 .Select((p, i) => new Tuple<Parameter, int>(p, i))
-                .ToDictionary(pair => pair.Item1.BackTrack);
+                .GroupBy(pair => pair.Item1.BackTrack)
+                .ToDictionary(gr => gr.Key, gr => gr.ToArray());
         }
 
-        public bool IndexOfBackTrack(string backTrackId, out int index)
+        public IEnumerable<int> GetBackTrackIndeces(string backTrackId)
         {
-            Tuple<Parameter, int> pair;
-            if (_dictionary.TryGetValue(backTrackId, out pair))
+            Tuple<Parameter, int>[] indeces;
+            if (_dictionary.TryGetValue(backTrackId, out indeces))
             {
-                index = pair.Item2;
-                return true;
+                return indeces.Select(pair => pair.Item2);
             }
             else
             {
-                index = -1;
-                return false;
+                return Enumerable.Empty<int>();
             }
         }
 
@@ -54,12 +53,12 @@ namespace NHibernate.Param
 
         void ICollection<Parameter>.Clear()
         {
-            _dictionary.Clear();
+            throw new NotSupportedException();
         }
 
         bool ICollection<Parameter>.Contains(Parameter item)
         {
-            return _dictionary.ContainsKey(item.BackTrack);
+            return _underlyingList.Contains(item);
         }
 
         public void CopyTo(Parameter[] array, int arrayIndex)
@@ -74,7 +73,7 @@ namespace NHibernate.Param
 
         int ICollection<Parameter>.Count
         {
-            get { return _dictionary.Count; }
+            get { return _underlyingList.Count; }
         }
 
         bool ICollection<Parameter>.IsReadOnly
@@ -84,9 +83,7 @@ namespace NHibernate.Param
 
         int IList<Parameter>.IndexOf(Parameter item)
         {
-            int index;
-            IndexOfBackTrack(item.BackTrack.ToString(), out index);
-            return index;
+            return _underlyingList.IndexOf(item);
         }
 
         void IList<Parameter>.Insert(int index, Parameter item)

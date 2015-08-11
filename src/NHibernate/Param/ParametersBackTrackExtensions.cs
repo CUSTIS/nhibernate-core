@@ -18,10 +18,9 @@ namespace NHibernate.Param
         {
             if (sqlParameters is BackTrackedParameterList)
             {
-                int index;
-                if (((BackTrackedParameterList)sqlParameters).IndexOfBackTrack(backTrackId, out index))
+                foreach (var i in ((BackTrackedParameterList)sqlParameters).GetBackTrackIndeces(backTrackId))
                 {
-                    yield return index;
+                    yield return i;
                 }
             }
             else
