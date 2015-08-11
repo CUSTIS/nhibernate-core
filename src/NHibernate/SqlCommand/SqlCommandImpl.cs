@@ -60,7 +60,7 @@ namespace NHibernate.SqlCommand
 		private readonly QueryParameters queryParameters;
 		private readonly ISessionFactoryImplementor factory;
 		private SqlType[] parameterTypes;
-		List<Parameter> sqlQueryParametersList;
+		IList<Parameter> sqlQueryParametersList;
 
 		public SqlCommandImpl(SqlString query, ICollection<IParameterSpecification> specifications, QueryParameters queryParameters, ISessionFactoryImplementor factory)
 		{
@@ -70,9 +70,9 @@ namespace NHibernate.SqlCommand
 			this.factory = factory;
 		}
 
-		public List<Parameter> SqlQueryParametersList
+		public IList<Parameter> SqlQueryParametersList
 		{
-			get { return sqlQueryParametersList ?? (sqlQueryParametersList = query.GetParameters().ToList()); }
+            get { return sqlQueryParametersList ?? (sqlQueryParametersList = query.GetParameters().ToBackTrackedList()); }
 		}
 
 		public SqlType[] ParameterTypes

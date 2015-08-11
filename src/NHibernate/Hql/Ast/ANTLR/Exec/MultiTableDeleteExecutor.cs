@@ -82,7 +82,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Exec
 					try
 					{
 						var paramsSpec = Walker.Parameters;
-						var sqlQueryParametersList = idInsertSelect.GetParameters().ToList();
+                        var sqlQueryParametersList = idInsertSelect.GetParameters().ToBackTrackedList();
 						SqlType[] parameterTypes = paramsSpec.GetQueryParameterTypes(sqlQueryParametersList, session.Factory);
 
 						ps = session.Batcher.PrepareCommand(CommandType.Text, idInsertSelect, parameterTypes);

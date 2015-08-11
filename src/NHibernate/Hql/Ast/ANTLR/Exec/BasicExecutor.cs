@@ -61,7 +61,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Exec
 				{
 					CheckParametersExpectedType(parameters); // NH Different behavior (NH-1898)
 
-					var sqlQueryParametersList = sql.GetParameters().ToList();
+                    var sqlQueryParametersList = sql.GetParameters().ToBackTrackedList();
 					SqlType[] parameterTypes = Parameters.GetQueryParameterTypes(sqlQueryParametersList, session.Factory);
 
 					st = session.Batcher.PrepareCommand(CommandType.Text, sql, parameterTypes);

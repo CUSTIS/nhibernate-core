@@ -110,7 +110,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Exec
 						List<IParameterSpecification> whereParams = (new List<IParameterSpecification>(allParams)).GetRange(
 							parameterStart, allParams.Count - parameterStart);
 
-						var sqlQueryParametersList = idInsertSelect.GetParameters().ToList();
+						var sqlQueryParametersList = idInsertSelect.GetParameters().ToBackTrackedList();
 						SqlType[] parameterTypes = whereParams.GetQueryParameterTypes(sqlQueryParametersList, session.Factory);
 
 						ps = session.Batcher.PrepareCommand(CommandType.Text, idInsertSelect, parameterTypes);
@@ -146,7 +146,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Exec
 					{
 						try
 						{
-							var sqlQueryParametersList = updates[i].GetParameters().ToList();
+                            var sqlQueryParametersList = updates[i].GetParameters().ToBackTrackedList();
 							var paramsSpec = hqlParameters[i];
 							SqlType[] parameterTypes = paramsSpec.GetQueryParameterTypes(sqlQueryParametersList, session.Factory);
 

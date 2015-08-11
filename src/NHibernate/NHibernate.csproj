@@ -538,6 +538,7 @@
     <Compile Include="ObjectDeletedException.cs" />
     <Compile Include="ObjectNotFoundException.cs" />
     <Compile Include="Param\CriteriaNamedParameterSpecification.cs" />
+    <Compile Include="Param\BackTrackedParameterList.cs" />
     <Compile Include="Param\IPageableParameterSpecification.cs" />
     <Compile Include="Param\ParametersBackTrackExtensions.cs" />
     <Compile Include="Param\QuerySkipParameterSpecification.cs" />

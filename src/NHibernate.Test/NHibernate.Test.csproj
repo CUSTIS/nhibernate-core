@@ -215,7 +215,6 @@
     <Compile Include="Criteria\ProjectionsTest.cs" />
     <Compile Include="Criteria\Reptile.cs" />
     <Compile Include="CustIS\AutoFlushInDistributedTransactionsTest.cs" />
-    <Compile Include="CustIS\LinqCollectionContains.cs" />
     <Compile Include="Deletetransient\Address.cs" />
     <Compile Include="Deletetransient\Person.cs" />
     <Compile Include="DialectTest\FunctionTests\SubstringSupportFixture.cs" />

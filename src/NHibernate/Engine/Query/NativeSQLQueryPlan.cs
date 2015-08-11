@@ -75,7 +75,7 @@ namespace NHibernate.Engine.Query
 				// After the last modification to the SqlString we can collect all parameters types.
 				parametersSpecifications.ResetEffectiveExpectedType(queryParameters);
 
-				var sqlParametersList = sql.GetParameters().ToList();
+                var sqlParametersList = sql.GetParameters().ToBackTrackedList();
 				SqlType[] sqlTypes = parametersSpecifications.GetQueryParameterTypes(sqlParametersList, session.Factory);
 				
 				IDbCommand ps = session.Batcher.PrepareCommand(CommandType.Text, sql, sqlTypes);

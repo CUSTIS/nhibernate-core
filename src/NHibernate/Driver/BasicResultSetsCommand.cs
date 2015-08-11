@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using NHibernate.Engine;
+using NHibernate.Param;
 using NHibernate.SqlCommand;
 using NHibernate.SqlTypes;
 
@@ -56,7 +57,7 @@ namespace NHibernate.Driver
 
 		protected virtual void BindParameters(IDbCommand command)
 		{
-			var wholeQueryParametersList = Sql.GetParameters().ToList();
+			var wholeQueryParametersList = Sql.GetParameters().ToBackTrackedList();
 			ForEachSqlCommand((sqlLoaderCommand, offset) => sqlLoaderCommand.Bind(command, wholeQueryParametersList, offset, Session));
 		}
 

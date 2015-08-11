@@ -215,12 +215,6 @@ namespace NHibernate.Driver
 			return dbParam;
 		}
 
-        /// <inheritDoc />
-	    public virtual void BindParameter(IType expectedType, IDbCommand command, object value, int index, ISessionImplementor session)
-	    {
-            expectedType.NullSafeSet(command, value, index, session);
-	    }
-
 	    public void RemoveUnusedCommandParameters(IDbCommand cmd, SqlString sqlString)
 		{
 			if (!UseNamedPrefixInSql)
