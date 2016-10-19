@@ -125,23 +125,33 @@ namespace NHibernate.AdoNet
 				// this value is not a part of the ADO.NET API.
 				// It's and ODP implementation, so it is being set by reflection
 				SetArrayBindCount(arraySize);
-				int rowsAffected;
-				try
-				{
-					rowsAffected = _currentBatch.ExecuteNonQuery();
-				}
-				catch (DbException e)
-				{
-					throw ADOExceptionHelper.Convert(Factory.SQLExceptionConverter, e, "could not execute batch command.");
-				}
+                try
+                {
+                    int rowsAffected;
+                    try
+                    {
+                        rowsAffected = _currentBatch.ExecuteNonQuery();
+                    }
+                    catch (DbException e)
+                    {
+                        // Message from DbException could be useful
+                        var additionalMessage = string.IsNullOrEmpty(e.Message) ? "." : string.Concat(": ", e.Message);
+                        throw ADOExceptionHelper.Convert(
+                                        Factory.SQLExceptionConverter, e,
+                                        string.Format("could not execute batch command{0}", additionalMessage));
+                    }
 
-				Expectations.VerifyOutcomeBatched(_totalExpectedRowsAffected, rowsAffected);
-
-				_totalExpectedRowsAffected = 0;
-				_currentBatch = null;
-				_parameterValueListHashTable = null;
-			}
-		}
+                    Expectations.VerifyOutcomeBatched(_totalExpectedRowsAffected, rowsAffected);
+                }
+                finally
+                {
+                    // Cleaning up even if batched outcome is invalid
+                    _totalExpectedRowsAffected = 0;
+                    _currentBatch = null;
+                    _parameterValueListHashTable = null;
+                }
+            }
+        }
 
 		protected override int CountOfStatementsInCurrentBatch
 		{
